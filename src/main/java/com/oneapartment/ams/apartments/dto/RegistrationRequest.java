@@ -1,5 +1,6 @@
 package com.oneapartment.ams.apartments.dto;
 
+import com.oneapartment.ams.apartments.AppUser.AppUserRole;
 import lombok.*;
 
 import javax.validation.constraints.Email;

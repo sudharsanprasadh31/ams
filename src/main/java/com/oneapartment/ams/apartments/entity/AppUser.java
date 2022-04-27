@@ -10,8 +10,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.UUID;
@@ -29,6 +27,7 @@ public class AppUser implements UserDetails {
     @Column(nullable = false)
     private String firstName;
     private String lastName;
+    @Column(unique = true)
     private String emailAddress;
     private String password;
     @Enumerated(EnumType.STRING)

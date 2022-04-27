@@ -10,6 +10,6 @@
 //public class JpaConfig {
 //    @Bean
 //    public AuditorAware<String> auditorAware() {
-//        return new SpringSecurityAuditorAware();
+//        return new AuditorAwareImpl();
 //    }
 //}

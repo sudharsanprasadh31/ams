@@ -1,6 +1,5 @@
 package com.oneapartment.ams.apartments.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,7 +12,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "Confirmation_token")
+@Table
 public class ConfirmationToken {
     @SequenceGenerator(
             name = "token_sequence",
@@ -26,7 +25,7 @@ public class ConfirmationToken {
             generator = "token_sequence"
     )
     private Long id;
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private UUID token;
     @Column(nullable = false)
     private LocalDateTime createAt;
