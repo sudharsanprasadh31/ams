@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -25,10 +26,10 @@ import static javax.persistence.TemporalType.TIMESTAMP;
 @NoArgsConstructor
 @EqualsAndHashCode
 @ToString
-//@EntityListeners(AuditingEntityListener.class)
-public class Apartment { //extends Auditable {
+@EntityListeners(AuditingEntityListener.class)
+public class Apartment extends Auditable<String> {
     @Id
-    private UUID id=UUID.randomUUID();
+    private UUID id = UUID.randomUUID();
     @NotNull(message = "Apartment Name Cannot be NULL")
     @NotNull(message = "Apartment Name Cannot be Blank")
     private String name;
@@ -37,7 +38,8 @@ public class Apartment { //extends Auditable {
     private String postalCode;
     private String country;
 
-    public Apartment(String name, String city, String state, String postalCode, String country) {
+    public Apartment(String name, String city, String state,
+                     String postalCode, String country) {
         this.name = name;
         this.city = city;
         this.state = state;

@@ -13,6 +13,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.session.SessionManagementFilter;
 
+import static com.oneapartment.ams.apartments.security.config.SecurityConstants.LOGIN_URL;
 import static com.oneapartment.ams.apartments.security.config.SecurityConstants.SIGN_UP_URL;
 
 @AllArgsConstructor
@@ -26,8 +27,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.addFilterBefore(corsFilter(), SessionManagementFilter.class).csrf().disable();
         http.authorizeRequests()
-                .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
-                .antMatchers(HttpMethod.POST,"api/auth").permitAll()
+//                .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
+//                .antMatchers(HttpMethod.POST,LOGIN_URL).permitAll()
+                .antMatchers("/api/v1/registration/**").permitAll()
+                .antMatchers("/api/auth/**").permitAll()
+                .antMatchers("/api/v1/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))

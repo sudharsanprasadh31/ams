@@ -17,9 +17,9 @@ public class ApartmentService {
         this.apartmentRepository = apartmentRepository;
     }
 
-    public List<Apartment> getApartmentList() {
-        return apartmentRepository.findAll();
-    }
+//    public List<Apartment> getApartmentList() {
+//        return apartmentRepository.findAll();
+//    }
 
     public List<Apartment> getApartmentByCity(String city) {
         System.out.println("Name of the city is : "+city);
