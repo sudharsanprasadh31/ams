@@ -16,6 +16,18 @@
 	<properties>
 		<java.version>18</java.version>
 	</properties>
+	<!-- Add Spring Cloud GCP Dependency BOM -->
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.google.cloud</groupId>
+				<artifactId>spring-cloud-gcp-dependencies</artifactId>
+				<version>2.0.3</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -86,7 +98,12 @@
 			<artifactId>gson</artifactId>
 			<version>2.9.0</version>
 		</dependency>
-
+		<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-gcp-starter -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-gcp-starter</artifactId>
+			<version>1.1.1.RELEASE</version>
+		</dependency>
 	</dependencies>
 
 	<build>

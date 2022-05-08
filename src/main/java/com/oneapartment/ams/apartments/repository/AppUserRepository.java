@@ -17,6 +17,8 @@ public interface AppUserRepository extends JpaRepository<AppUser, UUID> {
 
     Optional<AppUser> findByEmailAddress(String emailAddress);
 
+    AppUser findAppUserByUserId(UUID appUserId);
+
     @Transactional
     @Modifying
     @Query("UPDATE AppUser a " +

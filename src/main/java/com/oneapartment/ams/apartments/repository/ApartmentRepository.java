@@ -12,4 +12,8 @@ public interface ApartmentRepository extends JpaRepository<Apartment, UUID> {
 
 
     List<Apartment> findApartmentsByCity(String city);
+
+    Apartment findApartmentsById(UUID id);
+
+    boolean existsById(UUID id);
 }

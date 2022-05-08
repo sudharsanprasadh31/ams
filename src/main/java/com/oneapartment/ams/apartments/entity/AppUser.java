@@ -1,5 +1,6 @@
 package com.oneapartment.ams.apartments.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.oneapartment.ams.apartments.AppUser.AppUserRole;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -12,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -19,7 +21,7 @@ import java.util.UUID;
 @EqualsAndHashCode
 @NoArgsConstructor
 @Entity
-@Table(name = "users")
+@Table(name = "app_user")
 public class AppUser implements UserDetails {
 
     @Id
@@ -34,6 +36,9 @@ public class AppUser implements UserDetails {
     private AppUserRole appUserRole;
     private Boolean locked = false;
     private Boolean enabled = false;
+
+    @OneToMany(mappedBy="appUser",cascade = CascadeType.ALL)
+    @JsonIgnore private List<ApartmentUserPrivilege> apartmentUserPrivileges;
 
     public AppUser(String firstName, String lastName, String emailAddress, String password, AppUserRole appUserRole) {
         this.firstName = firstName;

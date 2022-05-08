@@ -15,9 +15,9 @@ public class ConfirmationTokenService {
 
     private ConfirmationTokenRepository confirmationTokenRepository;
 
-    public void saveConfirmationToken(ConfirmationToken token){
+    public ConfirmationToken saveConfirmationToken(ConfirmationToken token){
 
-        confirmationTokenRepository.save(token);
+        return confirmationTokenRepository.save(token);
     }
 
     public int setConfirmedAt(UUID token){

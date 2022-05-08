@@ -1,5 +1,7 @@
 package com.oneapartment.ams.apartments.controllers;
 
+import com.google.gson.JsonObject;
+import com.oneapartment.ams.apartments.dto.NewUserRegistrationResponse;
 import com.oneapartment.ams.apartments.dto.RegistrationRequest;
 import com.oneapartment.ams.apartments.service.RegistrationService;
 import lombok.AllArgsConstructor;
@@ -19,7 +21,7 @@ public class RegistrationController {
     private RegistrationService registrationService;
 
     @PostMapping
-    public String register(@Valid @RequestBody RegistrationRequest registrationRequest) {
+    public NewUserRegistrationResponse register(@Valid @RequestBody RegistrationRequest registrationRequest) {
         return registrationService.register(registrationRequest);
     }
 

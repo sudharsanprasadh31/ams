@@ -10,10 +10,9 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
-@Getter
-@Setter
 @Data
 public class RegistrationRequest {
+
     @NotNull(message = "First Name cannot be NULL")
     @NotBlank(message = "First Name cannot be Blank")
     private String firstName;
@@ -27,4 +26,5 @@ public class RegistrationRequest {
     @NotNull(message = "Password cannot be NULL")
     @NotBlank(message = "Password cannot be Blank")
     private String password;
+    private AppUserRole appUserRole;
 }

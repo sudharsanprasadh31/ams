@@ -1,12 +1,14 @@
 package com.oneapartment.ams.apartments.service;
 
 import com.oneapartment.ams.apartments.AppUser.AppUserRole;
+import com.oneapartment.ams.apartments.dto.NewUserRegistrationResponse;
 import com.oneapartment.ams.apartments.dto.RegistrationRequest;
 import com.oneapartment.ams.apartments.entity.AppUser;
 import com.oneapartment.ams.apartments.entity.ConfirmationToken;
 import com.oneapartment.ams.apartments.utility.EmailSender;
 import com.oneapartment.ams.apartments.utility.EmailValidator;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -15,24 +17,31 @@ import java.util.UUID;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class RegistrationService {
     private final EmailValidator emailValidator;
     private final AppUserService appUserService;
     private final ConfirmationTokenService confirmationTokenService;
     private final EmailSender emailSender;
 
-    public String register(RegistrationRequest registrationRequest) {
+    public NewUserRegistrationResponse register(RegistrationRequest registrationRequest) {
         boolean isValidEmail = emailValidator.test(registrationRequest.getEmailAddress());
         if (!isValidEmail) {
             throw new IllegalStateException("Email is NOT valid");
         }
-        String token = appUserService.registerUser(new AppUser(registrationRequest.getFirstName(),
+
+        if(!(registrationRequest.getAppUserRole().name().equals(AppUserRole.ROLE_USER) ||registrationRequest.getAppUserRole().name().equals(AppUserRole.ROLE_SUPER_ADMIN) ||registrationRequest.getAppUserRole().name().equals(AppUserRole.ROLE_ADMIN))  ){
+            log.info("registrationRequest.getAppUserRole().name() is: "+ registrationRequest.getAppUserRole().name());
+        }else{
+            registrationRequest.setAppUserRole(AppUserRole.ROLE_USER);
+        }
+        NewUserRegistrationResponse newUser = appUserService.registerUser(new AppUser(registrationRequest.getFirstName(),
                 registrationRequest.getLastName(), registrationRequest.getEmailAddress(),
-                registrationRequest.getPassword(), AppUserRole.ROLE_USER
+                registrationRequest.getPassword(), registrationRequest.getAppUserRole()
         ));
-        String link = "http://localhost:8080/api/v1/registration/confirm?token=" + token;
+        String link = "http://localhost:8080/api/v1/registration/confirm?token=" + newUser.getConfirmationToken().getToken() ;
         emailSender.send(registrationRequest.getEmailAddress(), buildEmail(registrationRequest.getFirstName(), link));
-        return token;
+        return newUser;
     }
 
     @Transactional

@@ -1,5 +1,6 @@
 package com.oneapartment.ams.apartments.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,6 +38,7 @@ public class ConfirmationToken {
             nullable = false,
             name = "app_user_id"
     )
+    @JsonIgnore
     private  AppUser appUser;
 
     public ConfirmationToken(UUID token, LocalDateTime createAt, LocalDateTime expiresAt, AppUser appUser) {
