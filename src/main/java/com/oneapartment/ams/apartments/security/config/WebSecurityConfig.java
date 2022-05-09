@@ -2,7 +2,11 @@ package com.oneapartment.ams.apartments.security.config;
 
 import com.oneapartment.ams.apartments.service.AppUserService;
 import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,6 +18,8 @@ import org.springframework.security.web.session.SessionManagementFilter;
 
 @AllArgsConstructor
 @EnableWebSecurity
+@Getter
+@Setter
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final AppUserService appUserService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
