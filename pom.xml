@@ -11,10 +11,15 @@
 	<groupId>com.oneapartment</groupId>
 	<artifactId>ams</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<profiles>
+		<profile>
+			<id>one-apartment</id>
+		</profile>
+	</profiles>
 	<name>ams</name>
 	<description>Apartment Management System</description>
 	<properties>
-		<java.version>18</java.version>
+		<java.version>11</java.version>
 	</properties>
 	<!-- Add Spring Cloud GCP Dependency BOM -->
 	<dependencyManagement>
@@ -106,6 +111,15 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>appengine-maven-plugin</artifactId>
+				<version>2.4.2</version>
+				<configuration>
+					<projectId>one-apartment</projectId>
+					<version>1</version>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
