@@ -9,6 +9,7 @@ import com.oneapartment.ams.apartments.utility.EmailSender;
 import com.oneapartment.ams.apartments.utility.EmailValidator;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -23,6 +24,9 @@ public class RegistrationService {
     private final AppUserService appUserService;
     private final ConfirmationTokenService confirmationTokenService;
     private final EmailSender emailSender;
+
+    @Value("${application.url}")
+    private static String applicationUrl;
 
     public NewUserRegistrationResponse register(RegistrationRequest registrationRequest) {
         boolean isValidEmail = emailValidator.test(registrationRequest.getEmailAddress());
@@ -39,7 +43,7 @@ public class RegistrationService {
                 registrationRequest.getLastName(), registrationRequest.getEmailAddress(),
                 registrationRequest.getPassword(), registrationRequest.getAppUserRole()
         ));
-        String link = "http://localhost:8080/api/v1/registration/confirm?token=" + newUser.getConfirmationToken().getToken() ;
+        String link = applicationUrl +"/api/v1/registration/confirm?token=" + newUser.getConfirmationToken().getToken() ;
         emailSender.send(registrationRequest.getEmailAddress(), buildEmail(registrationRequest.getFirstName(), link));
         return newUser;
     }
